@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private float jumpForce;
+    [SerializeField]
+    private float damage;
 
     // Start is called before the first frame update
     void Start()
@@ -77,7 +79,20 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            Debug.Log("Le he dado");
+            collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+        }
+    }
+    public void TakeDamage(float _damage)
+    {
+        GameManager.instance.life -= _damage;
+        if (GameManager.instance.life <= 0)
+        {
+            animator.SetTrigger("Death");
+            this.enabled = false;
+        }
+        else
+        {
+            animator.SetTrigger("Hit");
         }
     }
 }
