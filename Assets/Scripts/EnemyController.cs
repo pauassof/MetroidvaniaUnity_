@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     private float attackRate;
     [SerializeField]
     private float jumpForce;
-    [SerializeField] 
+    [SerializeField]
     private float knockBackForce;
     [SerializeField]
     private Animator animator;
@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     private float timePass;
     private bool isHit;
+    bool isAttacking;
 
     // Start is called before the first frame update
     void Start()
@@ -30,10 +31,9 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (playerDetected && GameManager.instance.life>0)
+        if (playerDetected && GameManager.instance.life > 0)
         {
             if (!isHit)
             {
@@ -71,6 +71,7 @@ public class EnemyController : MonoBehaviour
         {
             timePass = 0;
             animator.SetTrigger("Attack");
+            isAttacking = true;
         }
     }
 
@@ -84,10 +85,10 @@ public class EnemyController : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && isAttacking == false)
         {
             playerDetected = false;
-            rb.velocity = new Vector2 (0,rb.velocity.y);
+            rb.velocity = new Vector2(0, rb.velocity.y);
             animator.SetBool("Walk", false);
         }
     }
@@ -116,5 +117,9 @@ public class EnemyController : MonoBehaviour
     public void SetIsHitFalse()
     {
         isHit = false;
+    }
+    public void IsNotAttacking()
+    {
+        isAttacking = false;
     }
 }

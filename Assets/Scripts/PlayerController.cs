@@ -17,11 +17,13 @@ public class PlayerController : MonoBehaviour
     private float jumpForce;
     [SerializeField]
     private float damage;
+    private LevelManager levelManager;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        levelManager=GameObject.Find("LevelManager").GetComponent<LevelManager>();
     }
 
     // Update is called once per frame
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float _damage)
     {
         GameManager.instance.life -= _damage;
+        levelManager.UpdateLife();
         if (GameManager.instance.life <= 0)
         {
             animator.SetTrigger("Death");
