@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerDetected && GameManager.instance.life > 0)
+        if (playerDetected && GameManager.instance.gameData.Life > 0)
         {
             if (!isHit)
             {
@@ -81,6 +81,7 @@ public class EnemyController : MonoBehaviour
         {
             player = collision.transform;
             playerDetected = true;
+            Debug.Log("Detecto al player");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -90,6 +91,7 @@ public class EnemyController : MonoBehaviour
             playerDetected = false;
             rb.velocity = new Vector2(0, rb.velocity.y);
             animator.SetBool("Walk", false);
+            Debug.Log("No detecto al player");
         }
     }
     public void TakeDamage(float _damage)

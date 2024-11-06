@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public float life;
-    public float maxLife;
+    public GameData gameData;
 
     private void Awake()
     {
@@ -30,6 +31,40 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            gameData.PlayerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+            SaveData(GameManager.instance.gameData.Ranura);
+        }
+        if (Input.GetKey(KeyCode.RightControl) && Input.GetKeyDown(KeyCode.D))
+        {
+            PlayerPrefs.DeleteAll();
+        }
+
+    }
+
+    public void SaveData(int ranura)
+    {
+        gameData.CurrentScene = SceneManager.GetActiveScene().buildIndex;
+        string data = JsonUtility.ToJson(gameData);
+        PlayerPrefs.SetString("gameData"+ranura.ToString(), data);
+
+    }
+
+    public void LoadData(string partidaName)
+    {
+        if (PlayerPrefs.HasKey(partidaName) == true)
+        {
+            string data = PlayerPrefs.GetString(partidaName);
+            gameData = JsonUtility.FromJson<GameData>(data);
+        }
+        else
+        {
+            gameData = new GameData();
+            gameData.Life = 100;
+            gameData.MaxLife = 100;
+            gameData.PlayerPos = new Vector3(-5.12f, 0.258f, 0);
+        }
         
     }
 }
