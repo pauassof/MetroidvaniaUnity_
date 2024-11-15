@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     public GameData gameData;
 
+    public int nextSpawnPoint;
+
     private void Awake()
     {
         if (instance == null)
@@ -64,6 +66,8 @@ public class GameManager : MonoBehaviour
             gameData.Life = 100;
             gameData.MaxLife = 100;
             gameData.PlayerPos = new Vector3(-5.12f, 0.258f, 0);
+            gameData.MaxMana = 100;
+            gameData.Mana = 100;
         }
         
     }

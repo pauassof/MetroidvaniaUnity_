@@ -20,6 +20,19 @@ public class PlayerController : MonoBehaviour
     private LevelManager levelManager;
     private bool isJumping;
 
+    [Header("FireBall")]
+    [SerializeField]
+    private GameObject FireBallPrefab;
+    [SerializeField]
+    private Transform spawnFireBall;
+    [SerializeField]
+    private float fireRate;
+    [SerializeField]
+    private float fireBallSpeed;
+    [SerializeField]
+    private float manaCost;
+    private float fireBallTimePass;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +43,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        fireBallTimePass += Time.deltaTime;
+
         if (!isAttacking)
         {
 
@@ -50,6 +65,11 @@ public class PlayerController : MonoBehaviour
             }
 
             jumping = Input.GetButton("Jump");
+
+            if (Input.GetButtonDown("Fire2") && GameManager.instance.gameData.FireRune == true)
+            {
+                FireShoot();
+            }
         }
         else
         {
@@ -134,5 +154,19 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger("Hit");
         }
+    }
+
+    private void FireShoot()
+    {
+        if (GameManager.instance.gameData.Mana >= manaCost && fireRate <= fireBallTimePass)
+        {
+            GameManager.instance.gameData.Mana -= manaCost;
+            levelManager.UpdateMana();
+            GameObject fireBallClone = Instantiate(FireBallPrefab, spawnFireBall.position, spawnFireBall.rotation);
+            fireBallTimePass = 0;
+            fireBallClone.GetComponent<Rigidbody2D>().velocity = spawnFireBall.right * fireBallSpeed; //new Vector2(fireBallSpeed, 0);
+            Destroy(fireBallClone, 5);
+        }
+        
     }
 }

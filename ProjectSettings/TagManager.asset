@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - EnemyDamage
   - Ground
+  - FireRune
   layers:
   - Default
   - TransparentFX

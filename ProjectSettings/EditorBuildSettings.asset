@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PrimerMundo.unity
     guid: 97f21cf25db546f4a8be44f6356965e7
+  - enabled: 1
+    path: Assets/Scenes/SegundoMundo.unity
+    guid: a8a3ea77a6c397b46991e907876be6ef
+  - enabled: 1
+    path: Assets/Scenes/TercerMundo.unity
+    guid: 61a2b74efa6550e458b509c771abc048
   m_configObjects: {}

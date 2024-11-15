@@ -17,6 +17,12 @@ public class GameData
     private Vector3 playerPos;
     [SerializeField]
     private int ranura;
+    [SerializeField]
+    private float mana;
+    [SerializeField]
+    private float maxMana;
+    [SerializeField]
+    private bool fireRune;
 
     public float Life
     {
@@ -42,5 +48,21 @@ public class GameData
     {
         get { return ranura; }
         set { ranura = value; }
+    }
+    public float Mana
+    {
+        get { return mana; }
+        set { mana = value; }
+    }
+
+    public float MaxMana
+    {
+        get { return maxMana; }
+        set { maxMana = value; }
+    }
+    public bool FireRune
+    { 
+        get { return fireRune; } 
+        set {  fireRune = value; } 
     }
 }

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
     public void PlayButton()
     {
         panelPartidas.SetActive(true);
+        panelPartidas.transform.GetChild(1).GetComponent<Button>().Select();
         RevisarPartidas();
     }
 
@@ -23,6 +25,7 @@ public class MainMenuManager : MonoBehaviour
     public void BackButton()
     {
         panelPartidas.SetActive(false);
+        GameObject.Find("ButtonPlay").GetComponent<Button>().Select();
     }
 
     void RevisarPartidas()
