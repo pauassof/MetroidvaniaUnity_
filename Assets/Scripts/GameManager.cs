@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
             gameData.PlayerPos = new Vector3(-5.12f, 0.258f, 0);
             gameData.MaxMana = 100;
             gameData.Mana = 100;
+            gameData.AirRune = 1;
         }
         
     }

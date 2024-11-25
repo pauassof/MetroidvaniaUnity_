@@ -19,7 +19,10 @@ public class FireRune : MonoBehaviour
                 break;
 
             case "AirRune":
-
+                if (GameManager.instance.gameData.AirRune > 1)
+                {
+                    Destroy(gameObject);
+                }
                 break;
 
             case "EarthRune":
@@ -30,6 +33,7 @@ public class FireRune : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.tag == "Player")
         {
             switch (runaName)
@@ -40,7 +44,8 @@ public class FireRune : MonoBehaviour
                     break;
 
                 case "AirRune":
-
+                    GameManager.instance.gameData.AirRune = 2;
+                    Destroy(gameObject);
                     break;
 
                 case "EarthRune":

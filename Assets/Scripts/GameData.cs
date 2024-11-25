@@ -23,6 +23,8 @@ public class GameData
     private float maxMana;
     [SerializeField]
     private bool fireRune;
+    [SerializeField]
+    private int airRune;
 
     public float Life
     {
@@ -64,5 +66,10 @@ public class GameData
     { 
         get { return fireRune; } 
         set {  fireRune = value; } 
+    }
+    public int AirRune
+    {
+        get { return airRune; }
+        set { airRune = value; }
     }
 }

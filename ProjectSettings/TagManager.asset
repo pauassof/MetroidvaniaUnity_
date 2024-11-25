@@ -8,6 +8,7 @@ TagManager:
   - EnemyDamage
   - Ground
   - FireRune
+  - LimitRoll
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - UI
   - Proyectil
   - EvitarProyectil
-  - 
-  - 
+  - Player
+  - TempBoss
   - 
   - 
   - 

@@ -321,7 +321,7 @@ MonoBehaviour:
   spawnFireBall: {fileID: 6269454280416474943}
   fireRate: 3
   fireBallSpeed: 5
-  manaCost: 20
+  manaCost: 0
 --- !u!50 &7676461877162554242
 Rigidbody2D:
   serializedVersion: 4

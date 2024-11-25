@@ -55,10 +55,7 @@ public class MainMenuManager : MonoBehaviour
         }
         else
         {
-            GameManager.instance.gameData = new GameData();
-            GameManager.instance.gameData.Life = 100;
-            GameManager.instance.gameData.MaxLife = 100;
-            GameManager.instance.gameData.PlayerPos = new Vector3(-5.12f, 0.258f, 0);
+            GameManager.instance.LoadData("Pepe");
             GameManager.instance.gameData.Ranura = ranura;
             SceneManager.LoadScene(1);
         }

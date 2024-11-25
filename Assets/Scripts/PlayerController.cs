@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private float speed;
     private Rigidbody2D rb;
     private float horizontal;
-    private bool jumping;
     public bool isAttacking;
     [SerializeField] 
     private Animator animator;
@@ -18,7 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float damage;
     private LevelManager levelManager;
-    private bool isJumping;
+    private bool isHit;
+    private int jumpCount;
 
     [Header("FireBall")]
     [SerializeField]
@@ -64,7 +64,12 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Run", false);
             }
 
-            jumping = Input.GetButton("Jump");
+            if (Input.GetButtonDown("Jump") && jumpCount < GameManager.instance.gameData.AirRune)
+            {
+                rb.AddForce(Vector2.up * jumpForce);
+                animator.SetBool("Jump", true);
+                jumpCount++;
+            }
 
             if (Input.GetButtonDown("Fire2") && GameManager.instance.gameData.FireRune == true)
             {
@@ -84,44 +89,43 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (isHit == false)
+        {
             rb.velocity = new Vector2(speed * horizontal, rb.velocity.y);
-
-
-        if (jumping == true && (rb.velocity.y < 1 && rb.velocity.y > -1) && isJumping == false)
-        {
-            rb.AddForce(Vector2.up * jumpForce);
-            animator.SetBool("Jump", true);
-            isJumping = true;
-        }
-        else if (rb.velocity.y == 0)
-        {
-            animator.SetBool("Jump", false);
         }
     }
     void WallJump(Vector2 wallNormal)
     {
-        rb.AddForce((wallNormal+Vector2.up) * jumpForce);
-        animator.SetBool("Jump", true);
-        isJumping = true;
+        /*rb.AddForce((wallNormal+Vector2.up) * jumpForce);
+        animator.SetBool("Jump", true);*/
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            if (collision.GetContact(collision.contactCount - 1).normal.y >= 0.5f)
+            {
+                animator.SetBool("Jump", false);
+                jumpCount = 0;
+                animator.SetBool("DeslizPared", false);
+            }
+        }
+
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
-            if (collision.GetContact(collision.contactCount-1).normal.y >= 0.5f)
-            {
-                isJumping = false;
-                animator.SetBool("DeslizPared", false);
-            }
-            else if (collision.GetContact(0).normal.y == 0)
+            if (collision.GetContact(0).normal.y == 0)
             {
                 animator.SetBool("DeslizPared", true);
                 rb.velocity =new Vector2(rb.velocity.x, rb.velocity.y*0.5f);
-                if (jumping == true)
+                /*if (jumping == true)
                 {
                     WallJump(collision.GetContact(0).normal);
-                }
+                }*/
             }
         }
     }
@@ -138,7 +142,14 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+            try
+            {
+                collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+            }
+            catch 
+            {
+                collision.gameObject.GetComponent<FinalBossController>().TakeDamage(damage);
+            }
         }
     }
     public void TakeDamage(float _damage)
@@ -153,7 +164,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetTrigger("Hit");
+            isHit = true;
+            Invoke("NotHit", 0.5f);
         }
+    }
+
+    void NotHit()
+    {
+        isHit = false;
     }
 
     private void FireShoot()
