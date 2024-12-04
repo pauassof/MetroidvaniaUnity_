@@ -131,6 +131,12 @@ MonoBehaviour:
   knockBackForce: 0
   animator: {fileID: 7907886044708106052}
   stopDistance: 8
+  dropsPreFabs:
+  - {fileID: 2817446010491108227, guid: 8034afd7784c6634e9f6ac76f4f5a464, type: 3}
+  - {fileID: 2817446010491108227, guid: 8034afd7784c6634e9f6ac76f4f5a464, type: 3}
+  - {fileID: 8107096229521578569, guid: b22982d5444aaaa4b8c1a7456be3df15, type: 3}
+  - {fileID: 8107096229521578569, guid: b22982d5444aaaa4b8c1a7456be3df15, type: 3}
+  - {fileID: 2737207546311952372, guid: 4791e0f9e527e474ab2b1f037899662f, type: 3}
   proyectilPrefab: {fileID: 6945775465458925202, guid: 2caf4ac40b9c1034689132c842c0ee72, type: 3}
   spawnPoint: {fileID: 6382777991099236186}
   force: -300

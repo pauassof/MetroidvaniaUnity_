@@ -10,8 +10,18 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject panelPartidas;
+    [SerializeField]
+    private AudioClip menuMusic;
+    [SerializeField]
+    private AudioClip clickSFX;
+
+    private void Start()
+    {
+        AudioManager.instance.PlayMusic(menuMusic, 1);
+    }
     public void PlayButton()
     {
+        AudioManager.instance.PlaySFX(clickSFX, 1);
         panelPartidas.SetActive(true);
         panelPartidas.transform.GetChild(1).GetComponent<Button>().Select();
         RevisarPartidas();
@@ -19,11 +29,13 @@ public class MainMenuManager : MonoBehaviour
 
     public void ExitButton() 
     {
+        AudioManager.instance.PlaySFX(clickSFX, 1);
         Application.Quit();
     }
 
     public void BackButton()
     {
+        AudioManager.instance.PlaySFX(clickSFX, 1);
         panelPartidas.SetActive(false);
         GameObject.Find("ButtonPlay").GetComponent<Button>().Select();
     }
@@ -48,6 +60,7 @@ public class MainMenuManager : MonoBehaviour
     
     public void StartGame(int ranura)
     {
+        AudioManager.instance.PlaySFX(clickSFX, 1);
         if (PlayerPrefs.HasKey("gameData" + ranura.ToString()))
         {
             GameManager.instance.LoadData("gameData" + ranura.ToString());

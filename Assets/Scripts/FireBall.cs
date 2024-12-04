@@ -6,6 +6,8 @@ public class FireBall : MonoBehaviour
 {
     [SerializeField]
     private float damage;
+    [SerializeField]
+    private AudioClip explosionSFX;
 
     private Animator animator;
 
@@ -30,5 +32,6 @@ public class FireBall : MonoBehaviour
     void DestroyFireBall()
     {
         Destroy(gameObject);
+        AudioManager.instance.PlaySFX(explosionSFX, 1);
     }
 }

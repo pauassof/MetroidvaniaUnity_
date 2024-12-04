@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PrimerMundo.unity
     guid: 97f21cf25db546f4a8be44f6356965e7
   - enabled: 1
+    path: Assets/Scenes/Pasillo1.unity
+    guid: 2acf83e5533ba334ba597ea8f458f55b
+  - enabled: 1
     path: Assets/Scenes/SegundoMundo.unity
     guid: a8a3ea77a6c397b46991e907876be6ef
   - enabled: 1

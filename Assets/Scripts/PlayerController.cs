@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private bool isHit;
     private int jumpCount;
 
+
     [Header("FireBall")]
     [SerializeField]
     private GameObject FireBallPrefab;
@@ -32,6 +33,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float manaCost;
     private float fireBallTimePass;
+
+    [Header("SFX")]
+    [SerializeField]
+    private AudioClip espadazoSFX, hitSFX, deathSFX, fireballSFX, jumpSFX, pasosSFX;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +54,9 @@ public class PlayerController : MonoBehaviour
         if (!isAttacking)
         {
 
+#if UNITY_ANDROID == false
             horizontal = Input.GetAxis("Horizontal");
+#endif
             if (horizontal > 0)
             {
                 transform.eulerAngles = Vector3.zero;
@@ -69,10 +77,12 @@ public class PlayerController : MonoBehaviour
                 rb.AddForce(Vector2.up * jumpForce);
                 animator.SetBool("Jump", true);
                 jumpCount++;
+                AudioManager.instance.PlaySFX(jumpSFX, 1);
             }
 
             if (Input.GetButtonDown("Fire2") && GameManager.instance.gameData.FireRune == true)
             {
+                Debug.Log("Disparo");
                 FireShoot();
             }
         }
@@ -85,19 +95,54 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger("Attack");
             isAttacking = true;
+            AudioManager.instance.PlaySFX(espadazoSFX, 1);
         }
     }
+
+    public void JumpButton()
+    {
+        if (jumpCount < GameManager.instance.gameData.AirRune)
+        {
+            rb.AddForce(Vector2.up * jumpForce);
+            animator.SetBool("Jump", true);
+            jumpCount++;
+            AudioManager.instance.PlaySFX(jumpSFX, 1);
+        }
+    }
+
+    public void MoveButtonDown( int _horizontal)
+    {
+        Debug.Log("Le doy al boton");
+        horizontal = _horizontal;
+    }
+    public void MoveButtonUp()
+    {
+        horizontal = 0;
+    }
+
+    public void AttackButton()
+    {
+        if (rb.velocity.y < 1 && rb.velocity.y > -1)
+        {
+            animator.SetTrigger("Attack");
+            isAttacking = true;
+            AudioManager.instance.PlaySFX(espadazoSFX, 1);
+        }
+    }
+    public void FireButton()
+    {
+        if (GameManager.instance.gameData.FireRune == true)
+        {
+            FireShoot();
+        }
+    }
+
     private void FixedUpdate()
     {
         if (isHit == false)
         {
             rb.velocity = new Vector2(speed * horizontal, rb.velocity.y);
         }
-    }
-    void WallJump(Vector2 wallNormal)
-    {
-        /*rb.AddForce((wallNormal+Vector2.up) * jumpForce);
-        animator.SetBool("Jump", true);*/
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -122,10 +167,6 @@ public class PlayerController : MonoBehaviour
             {
                 animator.SetBool("DeslizPared", true);
                 rb.velocity =new Vector2(rb.velocity.x, rb.velocity.y*0.5f);
-                /*if (jumping == true)
-                {
-                    WallJump(collision.GetContact(0).normal);
-                }*/
             }
         }
     }
@@ -160,12 +201,15 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger("Death");
             this.enabled = false;
+            AudioManager.instance.PlaySFX(deathSFX, 1);
+            levelManager.DeathPanel();
         }
         else
         {
             animator.SetTrigger("Hit");
             isHit = true;
             Invoke("NotHit", 0.5f);
+            AudioManager.instance.PlaySFX(hitSFX, 1);
         }
     }
 
@@ -184,7 +228,13 @@ public class PlayerController : MonoBehaviour
             fireBallTimePass = 0;
             fireBallClone.GetComponent<Rigidbody2D>().velocity = spawnFireBall.right * fireBallSpeed; //new Vector2(fireBallSpeed, 0);
             Destroy(fireBallClone, 5);
+            AudioManager.instance.PlaySFX(fireballSFX, 1);
         }
         
+    }
+
+    public void PlayStepSound()
+    {
+        AudioManager.instance.PlaySFX(pasosSFX, 1);
     }
 }

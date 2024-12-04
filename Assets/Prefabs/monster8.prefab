@@ -248,14 +248,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ece5d911a99fb948a6ae8e7e829d9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 50
+  life: 40
   speed: 1
   playerDetected: 0
-  attackRate: 4
+  attackRate: 2
   jumpForce: 0
   knockBackForce: 200
   animator: {fileID: 5073894596497365644}
   stopDistance: 6
+  dropsPreFabs:
+  - {fileID: 2817446010491108227, guid: 8034afd7784c6634e9f6ac76f4f5a464, type: 3}
+  - {fileID: 2817446010491108227, guid: 8034afd7784c6634e9f6ac76f4f5a464, type: 3}
+  - {fileID: 8107096229521578569, guid: b22982d5444aaaa4b8c1a7456be3df15, type: 3}
+  - {fileID: 8107096229521578569, guid: b22982d5444aaaa4b8c1a7456be3df15, type: 3}
+  - {fileID: 2737207546311952372, guid: 4791e0f9e527e474ab2b1f037899662f, type: 3}
   proyectilPrefab: {fileID: 6895196344738476002, guid: 3b4de156485c5e04d929b186890daa17, type: 3}
   spawnPoint: {fileID: 687817152008216716}
   force: -300

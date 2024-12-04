@@ -10,4 +10,8 @@ public class AnimationEventos : MonoBehaviour
     {
         player.isAttacking = false;
     }
+    public void Step()
+    {
+        player.PlayStepSound();
+    }
 }

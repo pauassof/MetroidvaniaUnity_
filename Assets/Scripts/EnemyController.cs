@@ -20,6 +20,8 @@ public class EnemyController : MonoBehaviour
     private Transform player;
     [SerializeField]
     private float stopDistance;
+    [SerializeField]
+    private GameObject[] dropsPreFabs;
     private Rigidbody2D rb;
     private float timePass;
     private bool isHit;
@@ -111,6 +113,8 @@ public class EnemyController : MonoBehaviour
     void Death()
     {
         animator.SetTrigger("Death");
+        int azar = Random.Range (0, dropsPreFabs.Length);
+        GameObject clone = Instantiate(dropsPreFabs[azar], transform.position, Quaternion.identity);
     }
     public void AnimationDeath()
     {

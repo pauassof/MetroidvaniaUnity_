@@ -198,6 +198,12 @@ MonoBehaviour:
   knockBackForce: 300
   animator: {fileID: 385827527499071624}
   stopDistance: 1.5
+  dropsPreFabs:
+  - {fileID: 2817446010491108227, guid: 8034afd7784c6634e9f6ac76f4f5a464, type: 3}
+  - {fileID: 2817446010491108227, guid: 8034afd7784c6634e9f6ac76f4f5a464, type: 3}
+  - {fileID: 8107096229521578569, guid: b22982d5444aaaa4b8c1a7456be3df15, type: 3}
+  - {fileID: 8107096229521578569, guid: b22982d5444aaaa4b8c1a7456be3df15, type: 3}
+  - {fileID: 2737207546311952372, guid: 4791e0f9e527e474ab2b1f037899662f, type: 3}
 --- !u!50 &7337329539037679717
 Rigidbody2D:
   serializedVersion: 4
