@@ -20,6 +20,13 @@ public class PlayerController : MonoBehaviour
     private bool isHit;
     private int jumpCount;
 
+    [Header("Dash")]
+    [SerializeField]
+    private float manaDash;
+    [SerializeField]
+    private float dashForce;
+    private bool dash;
+
 
     [Header("FireBall")]
     [SerializeField]
@@ -82,9 +89,14 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Fire2") && GameManager.instance.gameData.FireRune == true)
             {
-                Debug.Log("Disparo");
                 FireShoot();
             }
+            if (Input.GetButtonDown("Fire3") && GameManager.instance.gameData.DashRune == true)
+            {
+                
+                Dash();
+            }
+
         }
         else
         {
@@ -112,7 +124,6 @@ public class PlayerController : MonoBehaviour
 
     public void MoveButtonDown( int _horizontal)
     {
-        Debug.Log("Le doy al boton");
         horizontal = _horizontal;
     }
     public void MoveButtonUp()
@@ -139,7 +150,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isHit == false)
+        if (isHit == false && dash == false)
         {
             rb.velocity = new Vector2(speed * horizontal, rb.velocity.y);
         }
@@ -231,6 +242,25 @@ public class PlayerController : MonoBehaviour
             AudioManager.instance.PlaySFX(fireballSFX, 1);
         }
         
+    }
+
+    private void Dash()
+    {
+        if (jumpCount == 0 && GameManager.instance.gameData.Mana >= manaCost)
+        {
+        
+        dash = true;
+        GameManager.instance.gameData.Mana -= manaDash;
+        levelManager.UpdateMana();
+        rb.AddForce(transform.right * dashForce);
+        animator.SetTrigger("Dash");
+        gameObject.layer = 10;
+        }
+    }
+    public void ChangeLayer()
+    {
+        gameObject.layer = 0;
+        dash = false;
     }
 
     public void PlayStepSound()

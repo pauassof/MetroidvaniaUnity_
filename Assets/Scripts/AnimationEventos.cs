@@ -14,4 +14,8 @@ public class AnimationEventos : MonoBehaviour
     {
         player.PlayStepSound();
     }
+    public void ChangeLayer()
+    {
+        player.ChangeLayer();
+    }
 }

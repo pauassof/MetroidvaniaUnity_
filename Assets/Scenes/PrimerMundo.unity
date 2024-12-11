@@ -30671,6 +30671,7 @@ MonoBehaviour:
     maxMana: 100
     fireRune: 0
     airRune: 1
+    dashRune: 1
   nextSpawnPoint: 0
 --- !u!4 &1320792941
 Transform:
@@ -36319,9 +36320,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 3978e3c4868f8df4e95e134a8323fef3, type: 3}
     - target: {fileID: 4038883530012228051, guid: 4aad08c932dfd3c4780b601940d9ed31, type: 3}
+      propertyPath: manaCost
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038883530012228051, guid: 4aad08c932dfd3c4780b601940d9ed31, type: 3}
+      propertyPath: manaDash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038883530012228051, guid: 4aad08c932dfd3c4780b601940d9ed31, type: 3}
       propertyPath: pasosSFX
       value: 
       objectReference: {fileID: 8300000, guid: 49510e81750108b40b37554429885dea, type: 3}
+    - target: {fileID: 4038883530012228051, guid: 4aad08c932dfd3c4780b601940d9ed31, type: 3}
+      propertyPath: dashForce
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 4038883530012228051, guid: 4aad08c932dfd3c4780b601940d9ed31, type: 3}
       propertyPath: espadazoSFX
       value: 
