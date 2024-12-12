@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - FireRune
   - LimitRoll
+  - Fireball
   layers:
   - Default
   - TransparentFX

@@ -27,6 +27,8 @@ public class GameData
     private int airRune;
     [SerializeField]
     private bool dashRune;
+    [SerializeField]
+    private bool madera;
 
     public float Life
     {
@@ -78,5 +80,10 @@ public class GameData
     {
         get { return dashRune; }
         set { dashRune = value; }
+    }
+    public bool Madera
+    {
+        get { return madera; }
+        set { madera = value; }
     }
 }
