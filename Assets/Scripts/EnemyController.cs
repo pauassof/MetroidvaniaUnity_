@@ -115,6 +115,8 @@ public class EnemyController : MonoBehaviour
         animator.SetTrigger("Death");
         int azar = Random.Range (0, dropsPreFabs.Length);
         GameObject clone = Instantiate(dropsPreFabs[azar], transform.position, Quaternion.identity);
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        gameObject.GetComponent<Collider2D>().enabled = false;
     }
     public void AnimationDeath()
     {

@@ -317,11 +317,19 @@ MonoBehaviour:
   animator: {fileID: 6060105247115093331}
   jumpForce: 400
   damage: 20
+  manaDash: 0
+  dashForce: 400
   FireBallPrefab: {fileID: 3041500920135000715, guid: 5af60e499b995174d9fa231565ec977d, type: 3}
   spawnFireBall: {fileID: 6269454280416474943}
   fireRate: 3
   fireBallSpeed: 5
-  manaCost: 0
+  manaCost: 10
+  espadazoSFX: {fileID: 8300000, guid: f74fb20ce10265d46bd264c354c1547c, type: 3}
+  hitSFX: {fileID: 8300000, guid: da34fa0a769acfa479c97116fed71568, type: 3}
+  deathSFX: {fileID: 8300000, guid: 3978e3c4868f8df4e95e134a8323fef3, type: 3}
+  fireballSFX: {fileID: 8300000, guid: 6cb806b73338bac4a8979b2cf18a2887, type: 3}
+  jumpSFX: {fileID: 8300000, guid: 3d742417abea41a4a918249953507403, type: 3}
+  pasosSFX: {fileID: 8300000, guid: 49510e81750108b40b37554429885dea, type: 3}
 --- !u!50 &7676461877162554242
 Rigidbody2D:
   serializedVersion: 4
