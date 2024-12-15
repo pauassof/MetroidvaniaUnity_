@@ -202,6 +202,10 @@ public class PlayerController : MonoBehaviour
             {
                 collision.gameObject.GetComponent<FinalBossController>().TakeDamage(damage);
             }
+            catch
+            {
+                collision.gameObject.GetComponent<MiniBoss>().TakeDamage(damage);
+            }
         }
     }
     public void TakeDamage(float _damage)
