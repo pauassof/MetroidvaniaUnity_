@@ -6,7 +6,7 @@ public class Madera : MonoBehaviour
 {
     private void Start()
     {
-        if (GameManager.instance.gameData.FireRune == true)
+        if (GameManager.instance.gameData.Madera == true)
                 {
                     Destroy(gameObject);
                 }

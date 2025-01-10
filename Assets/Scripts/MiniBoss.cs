@@ -8,18 +8,15 @@ public class MiniBoss : MonoBehaviour
     public enum semiBossStates { Idle, Attack, Spell, Walk, Death }
 
     [SerializeField]
-    private bossStates state;
+    private semiBossStates state;
+    [SerializeField]
+    private GameObject fireRune;
     private Animator animator;
     private Rigidbody2D rb;
     public bool waiting2;
-    private bool isHit;
     private Transform player;
 
     [Header("Stats")]
-    [SerializeField]
-    private float knockBackForce;
-    [SerializeField]
-    private float damage;
     public float life2;
     public float maxLife2;
 
@@ -32,13 +29,14 @@ public class MiniBoss : MonoBehaviour
     [Header("Spell")]
     [SerializeField]
     private GameObject spellPrefab;
+    private GameObject clone;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         waiting2 = true;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
@@ -70,11 +68,11 @@ public class MiniBoss : MonoBehaviour
                 StartCoroutine(Idle());
                 break;
 
-            case semiBossStates.Rugido:
+            case semiBossStates.Attack:
                 StartCoroutine(Attack());
                 break;
 
-            case semiBossStates.Spines:
+            case semiBossStates.Spell:
                 StartCoroutine(Spell());
                 break;
 
@@ -122,14 +120,15 @@ public class MiniBoss : MonoBehaviour
         }
         rb.velocity = Vector2.zero;
         animator.SetBool("Walk", false);
-        int azar = Random.Range(1, 5);
-        ChangeStates((semiBossStates)azar);
+        int azar = Random.Range(1, 4);
+        //ChangeStates((semiBossStates)azar);
+        ChangeStates(semiBossStates.Spell);
     }
     IEnumerator Attack()
     {
         animator.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3);
 
         int azar = Random.Range(1, 4);
         ChangeStates((semiBossStates)azar);
@@ -139,12 +138,18 @@ public class MiniBoss : MonoBehaviour
     IEnumerator Spell()
     {
         animator.SetTrigger("Spell");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2.5f);
+        clone = Instantiate(spellPrefab, player.position + new Vector3(0,(11.56f-8.15f),0), transform.rotation);
+        clone.GetComponent<AnimationEventos>().miniBoss = this;
+        yield return new WaitForSeconds(3);
         int azar = Random.Range(1, 4);
         ChangeStates((semiBossStates)azar);
     }
 
-
+    public void EndSpell()
+    {
+        Destroy(clone);
+    }
 
     public void TakeDamage(float _damage)
     {
@@ -155,10 +160,20 @@ public class MiniBoss : MonoBehaviour
             StopAllCoroutines();
             GetComponent<CapsuleCollider2D>().enabled = false;
             rb.isKinematic = true;
+            if (GameManager.instance.gameData.FireRune == false)
+            {
+                GameObject runeClone = Instantiate(fireRune, transform.position, transform.rotation);
+                runeClone.SetActive(true);
+            }
         }
         else
         {
             animator.SetTrigger("Hit");
         }
     }
+    public void AnimationDeath()
+    {
+        Destroy(this.gameObject);
+    }
+
 }

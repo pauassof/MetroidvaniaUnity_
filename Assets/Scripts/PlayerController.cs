@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private bool isHit;
     private int jumpCount;
 
+
     [Header("Dash")]
     [SerializeField]
     private float manaDash;
@@ -140,6 +141,14 @@ public class PlayerController : MonoBehaviour
             AudioManager.instance.PlaySFX(espadazoSFX, 1);
         }
     }
+    public void DashButton()
+    {
+        if (GameManager.instance.gameData.DashRune == true)
+        {
+
+            Dash();
+        }
+    }
     public void FireButton()
     {
         if (GameManager.instance.gameData.FireRune == true)
@@ -170,7 +179,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    /*private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
@@ -188,7 +197,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("DeslizPared", false);
         }
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -200,11 +209,14 @@ public class PlayerController : MonoBehaviour
             }
             catch 
             {
-                collision.gameObject.GetComponent<FinalBossController>().TakeDamage(damage);
-            }
-            catch
-            {
-                collision.gameObject.GetComponent<MiniBoss>().TakeDamage(damage);
+                try
+                {
+                    collision.gameObject.GetComponent<FinalBossController>().TakeDamage(damage);
+                }
+                catch
+                {
+                    collision.gameObject.GetComponent<MiniBoss>().TakeDamage(damage);
+                }
             }
         }
     }

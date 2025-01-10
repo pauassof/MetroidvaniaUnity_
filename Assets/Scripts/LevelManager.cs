@@ -89,10 +89,18 @@ public class LevelManager : MonoBehaviour
     public void UpdateLife()
     {
         lifeBar.fillAmount = GameManager.instance.gameData.Life/GameManager.instance.gameData.MaxLife;
+        if (GameManager.instance.gameData.Life > GameManager.instance.gameData.MaxLife)
+        {
+            GameManager.instance.gameData.Life = GameManager.instance.gameData.MaxLife;
+        }
     }
 
     public void UpdateMana()
     {
         manaBar.fillAmount = GameManager.instance.gameData.Mana / GameManager.instance.gameData.MaxMana;
+        if (GameManager.instance.gameData.Mana > GameManager.instance.gameData.MaxMana)
+        {
+            GameManager.instance.gameData.Mana = GameManager.instance.gameData.MaxMana;
+        }
     }
 }

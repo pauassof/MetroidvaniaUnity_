@@ -10,6 +10,7 @@ TagManager:
   - FireRune
   - LimitRoll
   - Fireball
+  - StartMiniBoss
   layers:
   - Default
   - TransparentFX

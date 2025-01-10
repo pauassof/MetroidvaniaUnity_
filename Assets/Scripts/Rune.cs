@@ -25,7 +25,11 @@ public class FireRune : MonoBehaviour
                 }
                 break;
 
-            case "EarthRune":
+            case "DashRune":
+                if (GameManager.instance.gameData.DashRune == true)
+                {
+                    Destroy(gameObject);
+                }
 
                 break;
         }
@@ -48,7 +52,9 @@ public class FireRune : MonoBehaviour
                     Destroy(gameObject);
                     break;
 
-                case "EarthRune":
+                case "DashRune":
+                    GameManager.instance.gameData.DashRune = true;
+                    Destroy(gameObject);
 
                     break;
             }
